@@ -1,0 +1,9 @@
+[
+   {"model": "levelupapi.EventGamer",
+    "pk": 1,
+    "fields": {
+    "game_type":1,
+    "event_type":2
+    }
+    }
+]
