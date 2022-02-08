@@ -93,4 +93,4 @@ class GameSerializer(serializers.ModelSerializer):
         model = Game
         fields = '__all__'
         # fields = ('id', 'title', 'maker', 'number_of_players', 'skill_level', 'gamer_id','game_type_id')
-        # depth = 2
+        depth = 2
