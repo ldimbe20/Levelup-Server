@@ -1,0 +1,2 @@
+-Make sure all databases that run off each other are running before you run the database that relies onthem.
+-Make sure auth user table is running if you get error in 
