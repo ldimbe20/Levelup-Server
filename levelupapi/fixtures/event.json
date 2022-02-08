@@ -11,7 +11,7 @@
         }
     },
 
-    { "model": "levelupapi.event", 
+    { "model": "levelupapi.event",
       "pk": 2, 
       "fields": { 
             "game": 2,
