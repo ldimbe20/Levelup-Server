@@ -87,15 +87,12 @@ class EventView(ViewSet):
         serializer.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
     
-    
-    
-# class EventSerializerTwo(serializers.ModelSerializer):
-#     """JSON serializer for game types
-#     """
-#     class Meta:
-#         model = Event
-#         fields = '__all__'
+    def destroy(self, request, pk):
+        game = Game.objects.get(pk=pk)
+        game.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
         
+
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -113,4 +110,8 @@ class CreateEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ['id', 'description', 'date', 'time', 'game']
+        
+        
+        
+   
        
