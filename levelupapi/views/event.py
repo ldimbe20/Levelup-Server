@@ -19,7 +19,7 @@ class EventView(ViewSet):
         """
         try:
             event = Event.objects.get(pk=pk)
-            serializer = EventSerializer(event)
+            serializer = CreateEventSerializer(event)
             return Response(serializer.data)
         except Event.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
@@ -67,23 +67,26 @@ class EventView(ViewSet):
             Response -- Empty body with 204 status code
         """
 
-        event = Event.objects.get(pk=pk)
-        event.description = request.data["description"]
-        event.date = request.data["date"]
-        event.time = request.data["time"]
+        # event = Event.objects.get(pk=pk)
+        # event.description = request.data["description"]
+        # event.date = request.data["date"]
+        # event.time = request.data["time"]
         
-        game = Game.objects.get(pk=request.data["game"])
-        event.game=game
-        event.save()
+        # game = Game.objects.get(pk=request.data["game"])
+        # event.game=game.id
+        # event.save()
     
         
-        organizer=Gamer.objects.get(pk=request.data["organizer"])
-        event.organizer= organizer
-        event.save()
+        # organizer=Gamer.objects.get(pk=request.data["organizer"])
+        # event.organizer= organizer
+        # event.save()
         
-        serializer = EventSerializer(event)
+        event = Event.objects.get(pk=pk)
+        serializer = CreateEventSerializer(event, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-
+    
     
     
 # class EventSerializerTwo(serializers.ModelSerializer):
@@ -102,3 +105,12 @@ class EventSerializer(serializers.ModelSerializer):
         model = Event
         fields = '__all__'
         depth = 2
+        
+
+class CreateEventSerializer(serializers.ModelSerializer):
+    """JSON serializer for game types
+    """
+    class Meta:
+        model = Event
+        fields = ['id', 'description', 'date', 'time', 'game']
+       
